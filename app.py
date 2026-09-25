@@ -32,7 +32,7 @@ if not st.session_state.authenticated:
 # Last GeoJSON
 # --------------------------------------------------
 
-GEOJSON_FILE = r"C:\tmp\20260705.geojson"
+GEOJSON_FILE = r"20260705.geojson"
 
 gdf = gpd.read_file(GEOJSON_FILE)
 
