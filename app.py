@@ -188,3 +188,15 @@ st.sidebar.write(
     f"**Ansvarlig:** {selected['fornavn_e']}"
 )
 
+st.sidebar.markdown("---")
+
+st.sidebar.markdown(
+    """
+    ### Lenker
+
+    🔗 [Talefoten](https://talefoten.no/)
+
+    ⛪ [Grefsen menighet](https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/grefsen/)
+    """,
+    unsafe_allow_html=True,
+)
