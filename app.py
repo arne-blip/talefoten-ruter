@@ -5,7 +5,8 @@ from streamlit_folium import st_folium
 
 import streamlit as st
 
-PASSWORD = "0047"
+
+PASSWORD = st.secrets["PASSWORD"]
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
