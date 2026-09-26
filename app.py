@@ -139,6 +139,22 @@ geojson = folium.GeoJson(
 geojson.add_to(m)
 
 # --------------------------------------------------
+# Sokengrenser
+# --------------------------------------------------
+
+sokn_gdf = gpd.read_file(r"grefsen_soknegrenser.geojson")
+
+
+folium.GeoJson(
+    sokn_gdf,
+    style_function=lambda feature: {
+        "fillOpacity": 0,
+        "color": "darkgreen",
+        "weight": 5,
+    }
+).add_to(m)
+
+# --------------------------------------------------
 # Vis kart
 # --------------------------------------------------
 
