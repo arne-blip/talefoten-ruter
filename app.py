@@ -125,21 +125,8 @@ def style_function(feature):
 # --------------------------------------------------
 # Kartlag
 # --------------------------------------------------
-
-geojson = folium.GeoJson(
-    gdf,
-    style_function=style_function,
-    tooltip=folium.GeoJsonTooltip(
-        fields=["fornavn_e"],
-        aliases=["Ansvarlig"],
-        sticky=True
-    )
-)
-
-geojson.add_to(m)
-
 # --------------------------------------------------
-# Sokengrenser
+# Soknegrenser
 # --------------------------------------------------
 
 sokn_gdf = gpd.read_file(r"grefsen_soknegrenser.geojson")
@@ -153,6 +140,20 @@ folium.GeoJson(
         "weight": 5,
     }
 ).add_to(m)
+
+
+geojson = folium.GeoJson(
+    gdf,
+    style_function=style_function,
+    tooltip=folium.GeoJsonTooltip(
+        fields=["fornavn_e"],
+        aliases=["Ansvarlig"],
+        sticky=True
+    )
+)
+
+geojson.add_to(m)
+
 
 # --------------------------------------------------
 # Vis kart
