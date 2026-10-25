@@ -118,6 +118,14 @@ valgt_person = st.sidebar.selectbox(
 if valgt_person != st.session_state.selected_name:
     st.session_state.selected_name = valgt_person
 
+antall = antall_pr_rute.get(str(st.session_state.selected_name).strip())
+
+if antall is None:
+    st.sidebar.metric("Antall blader", "–")
+    st.sidebar.caption("Fant ikke ruten i SQLite-tabellen.")
+else:
+    st.sidebar.metric("Antall blader", f"{int(antall):,}".replace(",", " "))
+
 st.sidebar.markdown("---")
 st.sidebar.subheader("Datoer")
 with st.sidebar.container(border=True):
@@ -192,27 +200,12 @@ folium.GeoJson(
 # Hovedområde: kart (midten) + detaljer (høyre kolonne)
 # --------------------------------------------------
 
-kart_kol, hoyre_kol = st.columns([4, 1])
-
-with kart_kol:
-    map_data = st_folium(
-        m,
-        height=700,
-        width=None,
-        returned_objects=["last_object_clicked_tooltip"],
-    )
-
-with hoyre_kol:
-    st.subheader("Detaljer")
-    st.write(f"**Ansvarlig:** {selected['fornavn_e']}")
-
-    antall = antall_pr_rute.get(str(selected["fornavn_e"]).strip())
-
-    if antall is None:
-        st.metric("Antall blader", "–")
-        st.caption("Fant ikke ruten i SQLite-tabellen.")
-    else:
-        st.metric("Antall blader", f"{int(antall):,}".replace(",", " "))
+map_data = st_folium(
+    m,
+    height=700,
+    width=None,
+    returned_objects=["last_object_clicked_tooltip"],
+)
 
 # --------------------------------------------------
 # Håndter polygon-klikk
