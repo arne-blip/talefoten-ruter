@@ -1,4 +1,5 @@
 import sqlite3
+from urllib.parse import quote
 
 import folium
 import geopandas as gpd
@@ -141,6 +142,14 @@ st.sidebar.markdown(
     ⛪ [Grefsen menighet](https://www.kirken.no/nb-NO/fellesrad/kirkeneioslo/menigheter/grefsen/)
     """,
     unsafe_allow_html=True,
+)
+
+st.sidebar.markdown("---")
+EPOST = "arne@holmeide.com"
+emne = quote(f"Henvendelse om rute: {st.session_state.selected_name}")
+st.sidebar.link_button(
+    "✉️ Send e-post til administrator",
+    f"mailto:{EPOST}?subject={emne}",
 )
 
 # --------------------------------------------------
