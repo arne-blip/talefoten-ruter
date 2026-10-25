@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from urllib.parse import quote
 
@@ -57,18 +58,19 @@ if not st.session_state.authenticated:
 # Datainnlasting (cachet)
 # --------------------------------------------------
 
+# Cachen nøkles på filens endringstid, slik at oppdaterte filer lastes på nytt.
 @st.cache_data
-def last_ruter(path):
+def last_ruter(path, mtime):
     return gpd.read_file(path)
 
 
 @st.cache_data
-def last_sokn(path):
+def last_sokn(path, mtime):
     return gpd.read_file(path)
 
 
 @st.cache_data
-def last_antall(path, tabell=None):
+def last_antall(path, mtime, tabell=None):
     """Returnerer dict {rute: antall blader} fra SQLite."""
     con = sqlite3.connect(path)
     try:
@@ -91,9 +93,11 @@ def last_antall(path, tabell=None):
     return dict(zip(df[rute_kol], df[antall_kol]))
 
 
-gdf = last_ruter(GEOJSON_FILE)
-sokn_gdf = last_sokn(SOKN_FILE)
-antall_pr_rute = last_antall(SQLITE_FILE, SQLITE_TABELL)
+gdf = last_ruter(GEOJSON_FILE, os.path.getmtime(GEOJSON_FILE))
+sokn_gdf = last_sokn(SOKN_FILE, os.path.getmtime(SOKN_FILE))
+antall_pr_rute = last_antall(
+    SQLITE_FILE, os.path.getmtime(SQLITE_FILE), SQLITE_TABELL
+)
 
 st.title("Administrasjon av ruter")
 
