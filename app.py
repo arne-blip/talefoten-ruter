@@ -33,7 +33,7 @@ if not st.session_state.authenticated:
 # Last GeoJSON
 # --------------------------------------------------
 
-GEOJSON_FILE = r"20260705.geojson"
+GEOJSON_FILE = r"20261025.geojson"
 
 gdf = gpd.read_file(GEOJSON_FILE)
 
@@ -112,7 +112,7 @@ def style_function(feature):
             "fillColor": "red",
             "color": "red",
             "weight": 4,
-            "fillOpacity": 0.4,
+            "fillOpacity": 0.15,
         }
 
     return {
